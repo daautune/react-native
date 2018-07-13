@@ -24,7 +24,9 @@ class App extends Component {
           products: products,
           isForm: false,
           filter: null,
-          keyword: ''
+          keyword: '',
+          name: '',
+          price: '',
         }
     }
     filterProduct = (name)  => {
@@ -74,7 +76,13 @@ class App extends Component {
         name: '+',
         onClick:() => this.gotoForm()
       }]
-
+    addProduct =(product) => {
+      let timestamp = (new Date()).getTime()
+      this.state.products['product-' + timestamp ] = product
+      this.setState({
+        products : this.state.products
+      })
+     }
     return (
       buttons.map((btn, i) => (
        <Button
@@ -101,6 +109,7 @@ class App extends Component {
                <div>
                  {this.renderButton()}
                  <Product products={products}/>
+                 <Form addProduct={this.addProduct} />
                </div>
              }
              <SearchBox updateSearch = {this.updateSearch} />
